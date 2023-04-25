@@ -8,6 +8,11 @@ phases:
   build:
     commands:
       - npm run build
+  
+  post_build:
+    commands:
+      - aws s3 cp --recursive ./build s3://app-deployment-view
+      - aws cloudfront create-invalidation --distribution-id E2Z8UF2ASR28NH --path /*\*
 
 artifacts:
   files:
